@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Event Horizon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;1,400&family=PT+Mono&display=swap">
+</head>
+<body>
+  <canvas id="sky" tabindex="0" aria-label="Black hole simulation. Drag or use the arrow keys to rotate the camera; scroll or press plus and minus to change distance."></canvas>
+
+  <header class="plate">
+    <p class="eyebrow">Schwarzschild metric · 1916</p>
+    <h1>Event Horizon</h1>
+    <p class="lede">Every pixel is a ray of light traced backwards through curved space. The shadow, the photon ring and the arc of the disk above the hole all come from one equation of motion for light.</p>
+    <dl class="radii">
+      <dt>1 r<sub>s</sub></dt><dd>event horizon</dd>
+      <dt>1.5 r<sub>s</sub></dt><dd>photon sphere, where light travels in circles</dd>
+      <dt>3 r<sub>s</sub></dt><dd>inner edge of the disk, the innermost stable orbit</dd>
+    </dl>
+    <p class="scale">r<sub>s</sub> = 2GM/c² · 2.95 km for one solar mass</p>
+    <p class="fallback" id="fallback" hidden></p>
+  </header>
+
+  <dl class="readout" id="readout">
+    <div><dt>Distance</dt><dd><span id="r-dist">19.0</span> r<sub>s</sub></dd></div>
+    <div><dt>Above the disk plane</dt><dd id="r-el">6.9°</dd></div>
+    <div><dt>Your clock</dt><dd id="r-clock">1 h = 61.7 min far away</dd></div>
+    <div class="r-perf"><dt>Render</dt><dd id="r-perf">—</dd></div>
+  </dl>
+
+  <aside class="panel" id="panel" aria-label="Simulation settings">
+    <section class="group">
+      <h2 class="label">View</h2>
+      <div class="presets" role="group" aria-label="Preset views">
+        <button type="button" id="p-physical" data-preset="physical" aria-pressed="true">As in nature</button>
+        <button type="button" id="p-interstellar" data-preset="interstellar" aria-pressed="false">Interstellar</button>
+        <button type="button" id="p-pole" data-preset="pole" aria-pressed="false">From the pole</button>
+        <button type="button" id="p-lens" data-preset="lens" aria-pressed="false">Lens only</button>
+      </div>
+      <p class="fact" id="fact"></p>
+    </section>
+
+    <section class="group">
+      <h2 class="label">Parameters</h2>
+      <div class="ctl">
+        <div class="ctl-head"><label for="temp">Disk temperature</label><output id="temp-out" for="temp">8,000 K</output></div>
+        <input type="range" id="temp" min="3000" max="20000" step="100" value="8000">
+      </div>
+      <div class="ctl">
+        <div class="ctl-head"><label for="rel">Doppler &amp; redshift</label><output id="rel-out" for="rel">100%</output></div>
+        <input type="range" id="rel" min="0" max="100" step="1" value="100">
+        <div class="doppler" aria-hidden="true">
+          <div class="bar"></div>
+          <div class="ends"><span>moving away</span><span>moving toward us</span></div>
+        </div>
+      </div>
+      <div class="ctl">
+        <div class="ctl-head"><label for="rout">Disk size</label><output id="rout-out" for="rout">out to 14 r<sub>s</sub></output></div>
+        <input type="range" id="rout" min="6" max="22" step="0.5" value="14">
+      </div>
+      <div class="ctl">
+        <div class="ctl-head"><label for="exposure">Exposure</label><output id="exposure-out" for="exposure">1.00</output></div>
+        <input type="range" id="exposure" min="0.3" max="2.5" step="0.05" value="1">
+      </div>
+    </section>
+
+    <section class="group toggles">
+      <label class="switch"><input type="checkbox" id="disk" checked><span>Accretion disk</span></label>
+      <label class="switch"><input type="checkbox" id="autorot" checked><span>Slow orbit</span></label>
+    </section>
+  </aside>
+
+  <button type="button" class="panel-toggle" id="panel-toggle" aria-controls="panel" aria-expanded="false">Settings</button>
+  <p class="hint">Drag to orbit the hole · scroll to change distance</p>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
